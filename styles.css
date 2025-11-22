@@ -93,3 +93,26 @@ body::after {
     50% { opacity: 0.04; }
     100% { opacity: 0.03; }
 }
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.download-btn {
+    padding: 8px 14px;
+    background: #43006b;
+    color: #f0d8ff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+    box-shadow: 0 0 10px #5e00a1;
+    transition: 0.2s;
+}
+
+.download-btn:hover {
+    background: #6e00b8;
+    box-shadow: 0 0 15px #8b16ff;
+}
