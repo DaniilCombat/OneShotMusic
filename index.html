@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The World Machine – OST</title>
+    <title>The World Machine – Playlist</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -13,13 +13,28 @@
 
 <header>
     <h1>The World Machine</h1>
-    <p>Original Soundtrack</p>
+    <p>Original Soundtrack – Playlist</p>
 </header>
 
-<section class="container">
-    <div id="music-list"></div>
+<section class="player-box">
+    <h2 id="current-track">Сейчас играет: —</h2>
+
+    <canvas id="visualizer" width="800" height="100"></canvas>
+    <audio id="audio-player" controls></audio>
+
+    <div class="controls-btns">
+        <button id="prev-btn">◄</button>
+        <button id="play-btn">▶</button>
+        <button id="next-btn">►</button>
+        <button id="repeat-btn">🔁</button>
+        <button id="shuffle-btn">🔀</button>
+        <button id="download-all-btn">💾 Скачать все</button>
+    </div>
 </section>
 
+<section class="container" id="playlist"></section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
