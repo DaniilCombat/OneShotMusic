@@ -15,12 +15,20 @@ window.onload = function() {
 
         div.innerHTML = `
             <h2>${track.title}</h2>
-            <audio controls>
-                <source src="${track.src}" type="audio/mpeg">
-            </audio>
+
+            <div class="controls">
+                <audio controls>
+                    <source src="${track.src}" type="audio/mpeg">
+                </audio>
+
+                <a class="download-btn" href="${track.src}" download>
+                    Скачать
+                </a>
+            </div>
         `;
 
         container.appendChild(div);
     });
 };
+
 
