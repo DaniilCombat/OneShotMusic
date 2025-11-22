@@ -15,75 +15,85 @@ header {
     text-shadow: 0 0 5px #9e4cff;
 }
 
-header h1 {
-    font-size: 42px;
-    margin: 0;
-}
+header h1 { font-size: 42px; margin: 0; }
+header p { color: #bd87ff; margin-top: 10px; font-size: 18px; }
 
-header p {
-    color: #bd87ff;
-    margin-top: 10px;
-    font-size: 18px;
-}
-
-.container {
+.player-box {
     width: 90%;
     max-width: 800px;
     margin: 40px auto;
-}
-
-.track {
+    padding: 25px;
     background: #1c002e;
     border: 2px solid #43006b;
     border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: inset 0 0 10px #480079, 0 0 15px #38006e;
-    transition: 0.3s;
+    box-shadow: inset 0 0 15px #480079, 0 0 20px #38006e;
+    text-align: center;
 }
 
-.track:hover {
-    transform: scale(1.02);
-    box-shadow: inset 0 0 15px #6c00b1, 0 0 20px #5b00a2;
+#current-track { margin-bottom: 10px; color: #e8caff; text-shadow: 0 0 4px #c182ff; }
+
+#visualizer { display: block; margin: 15px auto; background: #0d0017; }
+
+.controls-btns {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
-.track h2 {
-    margin-top: 0;
-    color: #e0c3ff;
-    text-shadow: 0 0 4px #c182ff;
+.controls-btns button {
+    padding: 8px 14px;
+    font-size: 16px;
+    background: #43006b;
+    border: none;
+    border-radius: 6px;
+    color: #f0d8ff;
+    cursor: pointer;
+    box-shadow: 0 0 10px #5e00a1;
+    transition: 0.2s;
 }
 
-audio {
-    width: 100%;
-    margin-top: 15px;
-    filter: drop-shadow(0 0 5px #8300d6);
+.controls-btns button:hover { background: #6e00b8; box-shadow: 0 0 15px #8b16ff; }
+
+.container { width: 90%; max-width: 800px; margin: 30px auto; }
+
+.track-item {
+    background: #1c002e;
+    border: 2px solid #43006b;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-/* Эффект старого монитора */
+.track-item:hover { background: #37004f; box-shadow: 0 0 12px #6e00b8; }
+
+.track-active {
+    border-color: #9e4cff;
+    background: #300042;
+    box-shadow: 0 0 15px #a04cff;
+}
+
+/* Скан-линии */
 .scanlines {
     pointer-events: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: repeating-linear-gradient(
         transparent 0px,
         transparent 2px,
-        rgba(0, 0, 0, 0.1) 3px
+        rgba(0,0,0,0.1) 3px
     );
     z-index: 9999;
     opacity: 0.4;
 }
 
 body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.03);
+    content:"";
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(255,255,255,0.03);
     mix-blend-mode: overlay;
     animation: screenFlicker 0.2s infinite;
 }
@@ -93,26 +103,4 @@ body::after {
     50% { opacity: 0.04; }
     100% { opacity: 0.03; }
 }
-.controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 10px;
-}
 
-.download-btn {
-    padding: 8px 14px;
-    background: #43006b;
-    color: #f0d8ff;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 14px;
-    white-space: nowrap;
-    box-shadow: 0 0 10px #5e00a1;
-    transition: 0.2s;
-}
-
-.download-btn:hover {
-    background: #6e00b8;
-    box-shadow: 0 0 15px #8b16ff;
-}
