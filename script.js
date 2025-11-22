@@ -7,7 +7,7 @@ const tracks = [
 ];
 
 window.onload = function() {
-    const list = document.getElementById("music-list");
+    const container = document.getElementById("music-list");
 
     tracks.forEach(track => {
         const div = document.createElement("div");
@@ -17,10 +17,10 @@ window.onload = function() {
             <h2>${track.title}</h2>
             <audio controls>
                 <source src="${track.src}" type="audio/mpeg">
-                Ваш браузер не поддерживает аудио.
             </audio>
         `;
 
-        list.appendChild(div);
+        container.appendChild(div);
     });
 };
+
