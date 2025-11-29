@@ -38,3 +38,29 @@
 <script src="script.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Админ панель</title>
+</head>
+<body>
+<h1>Администрирование музыки</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".mp3,.wav,.ogg">
+    <button type="submit">Загрузить</button>
+</form>
+
+<h2>Треки:</h2>
+<ul>
+    {% for t in tracks %}
+    <li>
+        {{ t }}
+        <a href="/delete/{{ t }}?password={{ admin_pass }}">[удалить]</a>
+    </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
