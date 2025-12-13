@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 const tracks = [
     { title: "OneShot Title Theme", src: "audio/title_theme.mp3" },
     { title: "The World Machine", src: "audio/the_world_machine.mp3" },
@@ -34,14 +36,13 @@ let source = null;
 tracks.forEach((track, index) => {
     const div = document.createElement("div");
     div.className = "track-item";
-    div.innerText = track.title;
+    div.textContent = track.title;
 
-    div.onclick = () => {
+    div.addEventListener("click", () => {
         currentIndex = index;
         loadTrack();
-        audio.play();
-        playBtn.classList.add("btn-active");
-    };
+        play();
+    });
 
     playlistBox.appendChild(div);
 });
@@ -55,135 +56,39 @@ function highlightTrack() {
 function loadTrack() {
     audio.src = tracks[currentIndex].src;
     currentTrackLabel.textContent = "Сейчас играет: " + tracks[currentIndex].title;
-
     highlightTrack();
 
-    // анимация названия трека
     currentTrackLabel.classList.remove("track-animate");
     void currentTrackLabel.offsetWidth;
     currentTrackLabel.classList.add("track-animate");
 }
 
-// === КНОПКИ ===
-playBtn.onclick = () => {
+// === УПРАВЛЕНИЕ ===
+function play() {
     if (!audioCtx) initAudioContext();
+    audio.play();
+    playBtn.classList.add("btn-active");
+}
 
-    if (audio.paused) {
-        audio.play();
-        playBtn.classList.add("btn-active");
-    } else {
-        audio.pause();
-        playBtn.classList.remove("btn-active");
-    }
-};
+function pause() {
+    audio.pause();
+    playBtn.classList.remove("btn-active");
+}
 
-nextBtn.onclick = () => playNext();
+// === КНОПКИ ===
+playBtn.addEventListener("click", () => {
+    audio.paused ? play() : pause();
+});
 
-prevBtn.onclick = () => {
+nextBtn.addEventListener("click", playNext);
+
+prevBtn.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
     loadTrack();
-    audio.play();
-    playBtn.classList.add("btn-active");
-};
+    play();
+});
 
-repeatBtn.onclick = () => {
+repeatBtn.addEventListener("click", () => {
     repeat = !repeat;
-    repeatBtn.classList.toggle("btn-active", repeat);
-};
-
-shuffleBtn.onclick = () => {
-    shuffle = !shuffle;
-    shuffleBtn.classList.toggle("btn-active", shuffle);
-};
-
-// === АНИМАЦИЯ НАЖАТИЙ КНОПОК ===
-[
-    playBtn,
-    nextBtn,
-    prevBtn,
-    repeatBtn,
-    shuffleBtn,
-    downloadAllBtn
-].forEach(btn => {
-    btn.addEventListener("mousedown", () => btn.classList.add("btn-press"));
-    btn.addEventListener("mouseup", () => btn.classList.remove("btn-press"));
-    btn.addEventListener("mouseleave", () => btn.classList.remove("btn-press"));
-});
-
-// === АВТОПЕРЕКЛЮЧЕНИЕ ===
-audio.addEventListener("ended", () => {
-    if (repeat) {
-        audio.play();
-    } else {
-        playNext();
-    }
-});
-
-function playNext() {
-    currentIndex = shuffle
-        ? Math.floor(Math.random() * tracks.length)
-        : (currentIndex + 1) % tracks.length;
-
-    loadTrack();
-    audio.play();
-    playBtn.classList.add("btn-active");
-}
-
-// === ВИЗУАЛИЗАЦИЯ ===
-function initAudioContext() {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 128;
-
-    source = audioCtx.createMediaElementSource(audio);
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-
-    drawVisualizer();
-}
-
-function drawVisualizer() {
-    if (!analyser) return;
-
-    requestAnimationFrame(drawVisualizer);
-
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-    analyser.getByteFrequencyData(dataArray);
-
-    ctx.fillStyle = "#0d0017";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    const barWidth = (canvas.width / bufferLength) * 1.5;
-    let x = 0;
-
-    for (let i = 0; i < bufferLength; i++) {
-        const barHeight = dataArray[i] / 2;
-        ctx.fillStyle = `rgb(${200 + barHeight}, 50, 255)`;
-        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-        x += barWidth + 1;
-    }
-}
-
-// === СКАЧИВАНИЕ ВСЕХ ТРЕКОВ ===
-downloadAllBtn.onclick = async () => {
-    const zip = new JSZip();
-
-    await Promise.all(
-        tracks.map(async track => {
-            const file = await fetch(track.src).then(r => r.blob());
-            zip.file(track.title + ".mp3", file);
-        })
-    );
-
-    const content = await zip.generateAsync({ type: "blob" });
-
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(content);
-    a.download = "OneShot_TheWorldMachine.zip";
-    a.click();
-};
-
-// === СТАРТ ===
-loadTrack();
+    repeatBtn.classList.toggle("btn-active", repeat
 
