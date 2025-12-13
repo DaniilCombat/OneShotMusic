@@ -90,5 +90,5 @@ prevBtn.addEventListener("click", () => {
 
 repeatBtn.addEventListener("click", () => {
     repeat = !repeat;
-    repeatBtn.classList.toggle("btn-active", repeat
+    repeatBtn.classList.toggle("btn-active", repeat);
 
