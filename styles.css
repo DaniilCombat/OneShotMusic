@@ -15,8 +15,16 @@ header {
     text-shadow: 0 0 5px #9e4cff;
 }
 
-header h1 { font-size: 42px; margin: 0; }
-header p { color: #bd87ff; margin-top: 10px; font-size: 18px; }
+header h1 { 
+    font-size: 42px; 
+    margin: 0; 
+}
+
+header p { 
+    color: #bd87ff; 
+    margin-top: 10px; 
+    font-size: 18px; 
+}
 
 .player-box {
     width: 90%;
@@ -30,14 +38,31 @@ header p { color: #bd87ff; margin-top: 10px; font-size: 18px; }
     text-align: center;
 }
 
-#current-track { margin-bottom: 10px; color: #e8caff; text-shadow: 0 0 4px #c182ff; }
+#current-track { 
+    margin-bottom: 10px; 
+    color: #e8caff; 
+    text-shadow: 0 0 4px #c182ff; 
+    min-height: 30px;
+}
 
-#visualizer { display: block; margin: 15px auto; background: #0d0017; }
+#visualizer { 
+    display: block; 
+    margin: 15px auto; 
+    background: #0d0017; 
+    border: 1px solid #43006b;
+}
+
+audio {
+    width: 100%;
+    margin-top: 15px;
+    filter: sepia(1) hue-rotate(240deg) saturate(3);
+}
 
 .controls-btns {
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -53,9 +78,22 @@ header p { color: #bd87ff; margin-top: 10px; font-size: 18px; }
     transition: 0.2s;
 }
 
-.controls-btns button:hover { background: #6e00b8; box-shadow: 0 0 15px #8b16ff; }
+.controls-btns button:hover { 
+    background: #6e00b8; 
+    box-shadow: 0 0 15px #8b16ff; 
+}
 
-.container { width: 90%; max-width: 800px; margin: 30px auto; }
+.btn-active {
+    background: #9e4cff !important;
+    box-shadow: 0 0 15px #c182ff !important;
+    color: white !important;
+}
+
+.container { 
+    width: 90%; 
+    max-width: 800px; 
+    margin: 30px auto; 
+}
 
 .track-item {
     background: #1c002e;
@@ -65,9 +103,21 @@ header p { color: #bd87ff; margin-top: 10px; font-size: 18px; }
     border-radius: 6px;
     cursor: pointer;
     transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.track-item:hover { background: #37004f; box-shadow: 0 0 12px #6e00b8; }
+.track-item::before {
+    content: "▶";
+    opacity: 0.7;
+    font-size: 12px;
+}
+
+.track-item:hover { 
+    background: #37004f; 
+    box-shadow: 0 0 12px #6e00b8; 
+}
 
 .track-active {
     border-color: #9e4cff;
@@ -75,12 +125,29 @@ header p { color: #bd87ff; margin-top: 10px; font-size: 18px; }
     box-shadow: 0 0 15px #a04cff;
 }
 
+.track-active::before {
+    content: "♫";
+    opacity: 1;
+    color: #9e4cff;
+}
+
+.track-animate {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
+
 /* Скан-линии */
 .scanlines {
     pointer-events: none;
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
     background: repeating-linear-gradient(
         transparent 0px,
         transparent 2px,
@@ -92,7 +159,11 @@ header p { color: #bd87ff; margin-top: 10px; font-size: 18px; }
 
 body::after {
     content:"";
-    position: fixed; top:0; left:0; width:100%; height:100%;
+    position: fixed; 
+    top:0; 
+    left:0; 
+    width:100%; 
+    height:100%;
     background: rgba(255,255,255,0.03);
     mix-blend-mode: overlay;
     animation: screenFlicker 0.2s infinite;
@@ -104,3 +175,32 @@ body::after {
     100% { opacity: 0.03; }
 }
 
+/* Адаптивность */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 28px;
+    }
+    
+    header p {
+        font-size: 16px;
+    }
+    
+    #visualizer {
+        width: 100%;
+        height: 80px;
+    }
+    
+    .controls-btns {
+        gap: 8px;
+    }
+    
+    .controls-btns button {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+    
+    .track-item {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
